@@ -1,19 +1,28 @@
 #include "Stick.h"
 
-Stick::Stick() {
-	pieza[0][0]=2;
-	pieza[1][0]=2;
-	pieza[2][0]=2;
-	pieza[3][0]=2;
+Stick::Stick(int num, int arr[15][11], int new_score) {
 	
-	for(int i=0; i<4; i++){
-		for(int j=0; j<1; j++){
+	if(num==1){
+		reimprimir_mat(arr);
+		puntaje=new_score;
+	}
+	
+	pieza[0][0]=2;
+	pieza[0][1]=2;
+	pieza[0][2]=2;
+	pieza[0][3]=2;
+	
+	for(int i=0; i<1; i++){
+		for(int j=0; j<4; j++){
 			iniciador(i,j,pieza[i][j]);
 		}
 	}
-	status=0;
+	status=1;
 }
-
+void Stick::subadmin(){
+	stick_admin();
+	//revisar_tetris();
+}
 void Stick::stick_admin(){
 	
 	tecla=keypress();

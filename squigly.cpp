@@ -1,6 +1,11 @@
 #include "squigly.h"
 
-squigly::squigly() {
+squigly::squigly(int num, int arr[15][11], int new_score) {
+	if(num==1){
+	reimprimir_mat(arr);
+	puntaje=new_score;
+	}
+	
 	pieza[0][0]=2;
 	pieza[1][0]=0;
 	pieza[2][0]=0;
@@ -10,23 +15,22 @@ squigly::squigly() {
 	pieza[0][2]=0;
 	pieza[1][2]=2;
 	pieza[2][2]=0;
-	for(int i=0; i<3; i++){
-		for(int j=0; j<3; j++){
-			metodo_cajon(i,j,pieza[i][j]);
-		}
-	}
+
 	status=0;
-}
-void squigly::metodo_cajon(int x, int y, int a){
-	int temp1, temp2, temp3;
-	temp1=x;
-	temp2=y;
-	temp3=a;
 	for(int i=0; i<3; i++){
 		for(int j=0; j<3; j++){
-			iniciador(temp1,temp2,temp3);
+			if(pieza[i][j]==2){
+				iniciador(i,j,pieza[i][j]);
+			}
 		}
 	}
+}
+
+void squigly::subadmin(){
+	
+	admin_sq();
+	//revisar_tetris();
+	
 }
 int squigly::admin_sq(){
 	
@@ -46,8 +50,9 @@ int squigly::admin_sq(){
 		for(int j=0; j<11; j++){
 			transformar(i,j);
 			if(admin==1){
-				return 0;
 				admin=0;
+				return 0;
+				
 			}
 		}
 	}
@@ -62,7 +67,7 @@ void squigly::rotar_squi(int state){
 		for(int i=14; i>-1; i--){
 			for(int j=0; j<11; j++){
 				if(tabla[i][j]==2){
-					cout<<"check"<<endl;
+					
 					if(tabla[i-1][j]==2){
 						if(tabla[i+1][j-1]==0){
 					
@@ -91,10 +96,13 @@ void squigly::rotar_squi(int state){
 		}
 		break;
 	case 0:
+		
 		for(int i=14; i>-1; i--){
-			for(int j=0; j<0; j++){
+			for(int j=0; j<11; j++){
 				if(tabla[i][j]==2){
+					
 					if(tabla[i-1][j]==2){
+						
 						if(tabla[i+1][j+2]==0){
 							
 							cord1=i;
@@ -121,3 +129,4 @@ void squigly::rotar_squi(int state){
 		break;
 	}
 }
+

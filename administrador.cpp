@@ -14,12 +14,15 @@ administrador::administrador() {
 				tabla[i][j]=9;
 			}
 			
+			
 		}
 	}
+	
 	freno=0;
 	status=0;
 	admin=0;
 	puntaje=0;
+	
 }
 void administrador::iniciador(int x, int y, int valor){
 	tabla[x][y+3]=valor;
@@ -35,11 +38,14 @@ void administrador::mostrar(){
 	}
 	
 	
+	
 }
 int administrador::keypress(){
 	int temp=0;
 	if(kbhit()){
+		
 		temp=getch();
+	
 		switch(temp){
 		case 80:
 			temp=1;
@@ -61,7 +67,7 @@ return temp;
 	
 }
 void administrador::mover_ficha(int recibo){
-	
+	//cout<<"Check";
 	if(freno==0){
 	switch(recibo){
 	case 1:	
@@ -166,6 +172,15 @@ void administrador::prerotacion(){
 }
 
 void administrador::bajar(int x){
+	
+	for(int i=0; i<15;i++){
+		for(int j=0; j<11; j++){
+			if(tabla[x][j]==1){
+				tabla[x][j]=0;
+				
+			}
+		}
+	}
 	for(x; x>-1; x--){
 		for(int j=0; j<11; j++){
 			if(tabla[x][j]==0 && tabla[x-1][j]==1){
@@ -187,18 +202,12 @@ void administrador::revisar_tetris(){
 				
 				
 				if(contador_temporal==9){
+					cout<<"Check"<<endl;
 					temp=i;
-					for(int i=0; i<15;i++){
-						for(int j=0; j<11; j++){
-							if(tabla[temp][j]==1){
-								tabla[temp][j]=0;
-								
-							}
-						}
-					}
+					puntaje+=1000;
 					bajar(temp);
 					contador_temporal=0;
-					puntaje=puntaje+1000;
+					
 					
 				}
 				
@@ -206,23 +215,66 @@ void administrador::revisar_tetris(){
 			}
 			else{
 				
-				
+				alerta=0;
 				contador_temporal=0;
 			}
 		}
 	}
+	interfaz(puntaje);
+	
 }
-bool administrador::control(){
-	admin=0;
+int administrador::control(){
+
+	for (int i=0; i<15; i++){
+		for (int j=0; j<11; j++){
+			if(tabla[i][j]==2){
+				return 0;
+				
+			}
+			
+		}
+	}
+
+		
 		return 1;
+	
 	
 
 }
-void administrador::interfaz(){
+
+
+void administrador::reimprimir_mat(int arr[15][11]){
+	for (int i=0; i<15; i++){
+		for (int j=0; j<11; j++){
+			tabla[i][j]=arr[i][j];
+		}
+	}
+	
+}
+
+int administrador::devolver_tabla(int x , int y)
+{
+	return tabla[x][y];
+}
+bool administrador::check_game_over(){
+	for(int i=0; i<11; i++)
+	if((tabla[1][i]==2 && tabla[2][i]==1 )|| (tabla[0][i]==2 && tabla[1][i]==1)){
+		return 1;
+		
+	}
+	return 0;
+}
+
+int administrador::send_score(){
+//	cout<<alerta+3<<endl;
+	return puntaje;
+}
+
+void administrador::interfaz(int score){
 	gotoxy(30,1);
 	cout<<"Puntaje: "<<endl;
 	gotoxy(30,2);
-	cout<<puntaje<<endl;
+	cout<<score<<endl;
 	gotoxy(30,5);
 	cout<<"Pulse Q para rotar ficha."<<endl;
 	gotoxy(1,1);

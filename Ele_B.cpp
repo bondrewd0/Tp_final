@@ -1,20 +1,32 @@
 #include "Ele_B.h"
 
-Ele_B::Ele_B() {
+Ele_B::Ele_B(int num, int arr[15][11], int new_score) {
+	
+	if(num==1){
+		reimprimir_mat(arr);
+		puntaje=new_score;
+	}
+	
 	pieza[0][0]=2;
 	pieza[0][1]=2;
 	pieza[0][2]=2;
 	pieza[0][3]=2;
 	pieza[1][0]=2;
 	pieza[1][1]=0;
-	pieza[1][2]=2;
-	pieza[1][3]=2;
+	pieza[1][2]=0;
+	pieza[1][3]=0;
+	
 	for (int i=0; i<2; i++){
 		for(int j=0; j<4; j++){
 			iniciador(i,j,pieza[i][j]);
 		}
 	}
 	status=0;
+}
+
+void Ele_B::subadmin(){
+	ele_b_admin();
+	//revisar_tetris();
 }
 
 void Ele_B::ele_b_admin(){

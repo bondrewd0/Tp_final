@@ -1,6 +1,12 @@
 #include "Te.h"
 
-Te::Te() {
+Te::Te(int num, int arr[15][11], int new_score) {
+	
+	if(num==1){
+		reimprimir_mat(arr);
+		puntaje=new_score;
+	}
+	
 	pieza[0][0]=0;
 	pieza[0][1]=2;
 	pieza[0][2]=0;
@@ -10,14 +16,25 @@ Te::Te() {
 	
 	for(int i=0; i<2; i++){
 		for(int j=0; j<3; j++){
-			iniciador(i,j,pieza[i][j]);
+			if(pieza[i][j]==2){
+				iniciador(i,j,pieza[i][j]);
+			}
 		}
 	}
+	
+	status=0;
 }
 
-	void Te::te_admin(){
+void Te::subadmin(){
+	
+	te_admin();
+	//revisar_tetris();
+}
+
+void Te::te_admin(){
 
 		tecla=keypress();
+		
 		if(tecla==4){
 			status++;
 			if(status==4){
@@ -25,10 +42,12 @@ Te::Te() {
 			}
 			rotar(status);
 		}
+		
 		else{
 			
 			mover_ficha(tecla);
 		}
+		
 		for(int i=14; i>-1; i--){
 			for(int j=0; j<11; j++){
 				transformar(i,j);
@@ -37,7 +56,7 @@ Te::Te() {
 	}
 
 	
-	void Te::rotar(int state){
+void Te::rotar(int state){
 	int cord1, cord2;
 	switch(state){
 	case 1:
@@ -170,3 +189,4 @@ Te::Te() {
 		break;
 	}
 }
+

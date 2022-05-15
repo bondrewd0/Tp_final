@@ -1,6 +1,10 @@
 #include "squigly_inverso.h"
 
-squigly_inverso::squigly_inverso() {
+squigly_inverso::squigly_inverso(int num, int arr[15][11], int new_score) {
+	if(num==1){
+		reimprimir_mat(arr);
+		puntaje=new_score;
+	}
 	pieza[0][0]=0;
 	pieza[0][1]=2;
 	pieza[0][2]=2;
@@ -12,11 +16,18 @@ squigly_inverso::squigly_inverso() {
 	pieza[2][2]=0;
 	for(int i=0; i<3; i++){
 		for(int j=0; j<3; j++){
+			if(pieza[i][j]==2){
 			iniciador(i,j,pieza[i][j]);
+			}
 		}
 	}
 	status=0;
 }
+void squigly_inverso::subadmin(){
+	admin_sq_inv();
+	//revisar_tetris();
+}
+
 int squigly_inverso::admin_sq_inv(){
 	
 	tecla=keypress();
@@ -36,8 +47,9 @@ int squigly_inverso::admin_sq_inv(){
 			transformar(i,j);
 			if(admin==1){
 				
+				return 0;
+				admin=0;
 				
-				admin=0;return 0;
 			}
 		}
 	}
@@ -82,7 +94,7 @@ void squigly_inverso::rotar(int state){
 		break;
 	case 0:
 		for(int i=14; i>-1; i--){
-			for(int j=0; j<0; j++){
+			for(int j=0; j<11; j++){
 				if(tabla[i][j]==2){
 					if(tabla[i-1][j]==2){
 						if(tabla[i-1][j+2]==0){
